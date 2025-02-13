@@ -11,7 +11,12 @@
 - Find me a hike similar to another hike that I have done in past
 
 ## Goal for the project output
-- 
+- Create a tool that
+   - Suggests hikes to the user based on their preferences.
+   - Creates a training plan for the user who wants to hike a certain mountain.
+   - Provides details on what the user needs to do a given hike
+   - Recommends similar hikes
+- A data visualization on one user's activity on the platform
 
 ## Data sources you will use
 - Trail Data: https://trails-wa-rco.hub.arcgis.com/datasets/wa-rco::wa-rco-trails-database-public-view/about?layer=0

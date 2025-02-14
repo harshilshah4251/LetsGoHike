@@ -1,5 +1,29 @@
 ## Functional Specification
 
+## Background  
+Finding suitable hikes is challenging due to varying trail conditions, weather, and personal preferences. This tool aims to simplify the search for hikes, assist in training for hiking goals, and help businesses and rangers manage hiking information.  
+
+
+## User Profile  
+### Normal User  
+- **Description**: Casual hikers looking for personalized hike recommendations.  
+- **Technical Skills**: Can browse the tool.  
+
+### Business User  
+- **Description**: Travel agents or guides collecting hike info for clients.  
+- **Technical Skills**: Can browse the tool.  
+
+### Ranger  
+- **Description**: Trail maintainers checking trail conditions.  
+- **Technical Skills**: Can browse the tool.  
+
+
+## Data Sources  
+- **Trail Data**: [WA-RCO Trails Database](https://trails-wa-rco.hub.arcgis.com/datasets/wa-rco::wa-rco-trails-database-public-view/about?layer=0)  
+- **Weather Data**: [CoCoRaHS Precipitation Reports](https://www.cocorahs.org/ViewData/ListDailyPrecipReports.aspx)  
+- **All Trails Data**: [All Trails Dataset](https://github.com/j-ane/trail-data/blob/master/alltrails-data.csv)  
+
+
 ### User Stories
 
 | Who | Wants | Interaction Methods | Needs | Skills |

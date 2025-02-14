@@ -17,7 +17,8 @@
    - Provides details on what the user needs to do a given hike
    - Recommends similar hikes
 - A data visualization on one user's activity on the platform
-Exploratory goal - Allow users to talk to other trek enthusiasts and plan treks.
+
+Exploratory goal - Allow users to talk to other trek enthusiasts and plan treks
 
 ## Data sources you will use
 - Trail Data: https://trails-wa-rco.hub.arcgis.com/datasets/wa-rco::wa-rco-trails-database-public-view/about?layer=0

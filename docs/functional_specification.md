@@ -11,6 +11,8 @@
 
 
 
+### Use Cases
 
 | User_Type | Objective | User_Input | System_Provide |
+|-|-|-|-|
 | Business Users | Business users use this tool to collect trails information and prepare hike trips for their clients | Users provide their perferences such as trail types, length, difficult level, and weather conditions | System provide a list of trails recommendation based on users input |

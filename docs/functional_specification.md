@@ -4,15 +4,77 @@
 
 | Who | Wants | Interaction Methods | Needs | Skills |
 |-|-|-|-|-|
-| User | Wants to find a hike that aligns with their preferences | Use filters on the tool to provide preferences | Needs the best hike that will align with their preferences | No technical skills |  
+| User | Wants to find a hike that aligns with their preferences | Use filters on the tool to provide preferences | Needs the best hike that will align with their preferences | No technical skills |
+| User | Wants to find nearby hikes using their location| Provide location to the tool | Needs nearby hikes | No technical skills |  
+| User | Wants to see weather report for a hike | Provide hike name | Needs weather report for the hike | No technical skills |  
+| User | Wants to see visualization stats for the hike | Provide hike name | Needs visualization stats for the hike | No technical skills |  
+| User | Wants to training hiking plan for a given hike | Provide the target hike | Needs training plan | No technical skills | 
 | Business User | Wants to collect hike info for their clients | Use filters on the tool to provide preferences | Needs hiking options for their clients | No technical skills |
+| Business User | Export CSV of all hikes for clients | Batch export hikes | Needs export to CSV functionality | No technical skills |
 | Trail maintainer | Wants to find trails and check trail quality | search for specific trails | Needs comprehensive details on trails | No technical skills | 
 
+### Use Case 1: Find a Hike That Aligns with Preferences  
+**Objective of the user interaction:**  
+The user wants to find the best hike that matches their specific preferences, such as difficulty level, time of year, and distance.  
 
+**What information does the user provide?**  
+- Filters for preferences (e.g., difficulty level, distance, time of year, and weather conditions).  
 
+**What response does the system provide?**  
+- A list of hikes that best match the provided preferences, sorted by relevance.  
+- Detailed information for each hike, including difficulty level, distance, elevation gain, estimated duration, and user reviews.  
 
-### Use Cases
+**Steps:**  
+1. User navigates to the hike recommendation section of the tool.  
+2. User selects filters for preferences, such as difficulty, distance, time of year, and weather conditions.  
+3. User submits the selected preferences.  
+4. System processes the preferences and searches the hike database.  
+5. System generates a list of hikes that best match the provided preferences.  
+6. System displays the list of recommended hikes, sorted by relevance.  
+7. User selects a hike to view detailed information.  
+8. System displays detailed information about the selected hike, including difficulty level, distance, elevation gain, estimated duration, and user reviews.  
 
-| User_Type | Objective | User_Input | System_Provide |
-|-|-|-|-|
-| Business Users | Business users use this tool to collect trails information and prepare hike trips for their clients | Users provide their perferences such as trail types, length, difficult level, and weather conditions | System provide a list of trails recommendation based on users input |
+---
+
+### Use Case 2: Get Training Plan for a Specific Hike  
+**Objective of the user interaction:**  
+The user wants to get a customized training plan to prepare for a specific hike.  
+
+**What information does the user provide?**  
+- The target hike they want to train for.  
+
+**What response does the system provide?**  
+- A detailed training plan tailored to the selected hike, including recommended exercises, duration, and intensity.  
+
+**Steps:**  
+1. User navigates to the training plan section of the tool.  
+2. User selects or enters the target hike they want to train for.  
+3. User submits the request for a training plan.  
+4. System analyzes the difficulty and requirements of the selected hike.  
+5. System generates a customized training plan, considering hike difficulty, elevation gain, and distance.  
+6. System displays the training plan with recommended exercises, duration, and intensity.  
+7. User reviews the training plan and follows it to prepare for the hike.
+
+---
+
+### Use Case 3: Export Hike Data to CSV for Business Clients  
+**Objective of the user interaction:**  
+A business user wants to collect hiking options and export them to a CSV file to share with their clients.  
+
+**What information does the user provide?**  
+- Filters to select relevant hikes (e.g., region, difficulty, or popularity).  
+- Confirmation for exporting the selected hikes.  
+
+**What response does the system provide?**  
+- A downloadable CSV file containing the selected hike data.  
+
+**Steps:**  
+1. Business user navigates to the hike collection section of the tool.  
+2. Business user applies filters to select relevant hikes for their clients (e.g., region, difficulty, or popularity).  
+3. Business user reviews the list of selected hikes.  
+4. Business user confirms the export request.  
+5. System compiles the hike data based on the selected filters.  
+6. System generates a CSV file containing the compiled hike data.  
+7. System provides a download link for the CSV file.  
+8. Business user downloads the CSV file and shares it with their clients.  
+

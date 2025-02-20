@@ -26,3 +26,8 @@ Component: Filter tool
 What it does: returns a list of trails based on user filter specifications
 Inputs: dropdown menu selections from user
 Outputs: List of trails that meet user specifications
+
+
+Interactive Diagram
+
+![Alt text](/Users/layyang/Downloads/Blank diagram - Page 1.png)

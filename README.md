@@ -1,5 +1,8 @@
 # LetsGoHike
 
+![Build/Test Workflow](https://github.com/harshilshah4251/LetsGoHike/actions/workflows/build_test.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/harshilshah4251/LetsGoHike/badge.svg?branch=main)](https://coveralls.io/github/harshilshah4251/LetsGoHike?branch=main)
+
 ## Project Type
 - Tool  
 - Analysis

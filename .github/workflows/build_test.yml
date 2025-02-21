@@ -73,7 +73,7 @@ jobs:
       # Next step: run the unit tests with code coverage.
       - name: Unit tests
         run: |
-          cd entropy
+          cd hike
           coverage run -m unittest discover
           coverage report
           coverage lcov
@@ -90,8 +90,8 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          base-path: entropy
-          path-to-lcov: entropy/coverage.lcov
+          base-path: 
+          path-to-lcov: hike/coverage.lcov
           # The following two options are needed for "parallel"
           # runs - ie if you have a matrix of python versions.
           # This holds off on reporting code coverage to

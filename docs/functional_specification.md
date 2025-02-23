@@ -34,6 +34,25 @@ The user wants to find the best hike that matches their specific preferences, su
 7. User selects a hike to view detailed information.  
 8. System displays detailed information about the selected hike, including difficulty level, distance, elevation gain, estimated duration, and user reviews.  
 
+**Diagram:**
++-------------------+       +-------------------+       +-------------------+
+|      User         |       |        UI         |       | Backend Components|
++-------------------+       +-------------------+       +-------------------+
+| Select Filters    | ----> | Filters Display   | ----> | Filter Tool       |
+| Enter Trail Name  | ----> | Search Bar        | ----> | Search Tool       |
+| Select Hike       | <---- | Hike List Display | <---- | Trail Finder      |
+| View Trail Map    | <---- | Trail Map Display | <---- | Trail Database    |
++-------------------+       +-------------------+       +-------------------+
+                                                              |
+                                                              v
+                                                    +-------------------+
+                                                    | External Systems  |
+                                                    +-------------------+
+                                                    | Weather API       |
+                                                    +-------------------+
+
+
+
 ---
 
 ### Use Case 2: Get Training Plan for a Specific Hike  
@@ -54,6 +73,23 @@ The user wants to get a customized training plan to prepare for a specific hike.
 5. System generates a customized training plan, considering hike difficulty, elevation gain, and distance.  
 6. System displays the training plan with recommended exercises, duration, and intensity.  
 7. User reviews the training plan and follows it to prepare for the hike.
+
+**Diagram:**
++-------------------+       +-------------------+       +-------------------+
+|      User         |       |        UI         |       | Backend Components|
++-------------------+       +-------------------+       +-------------------+
+| Select Hike       | ----> | Hike Selection    | ----> | Trail Finder      |
+| View Training Plan| <---- | Training Plan    | <---- | Trail Comparison  |
++-------------------+       +-------------------+       +-------------------+
+                                                              |
+                                                              v
+                                                    +-------------------+
+                                                    | External Systems  |
+                                                    +-------------------+
+                                                    | Weather API       |
+                                                    +-------------------+
+
+
 
 ---
 
@@ -77,4 +113,22 @@ A business user wants to collect hiking options and export them to a CSV file to
 6. System generates a CSV file containing the compiled hike data.  
 7. System provides a download link for the CSV file.  
 8. Business user downloads the CSV file and shares it with their clients.  
+
+**Diagram:**
++-------------------+       +-------------------+       +-------------------+
+|      User         |       |        UI         |       | Backend Components|
++-------------------+       +-------------------+       +-------------------+
+| Apply Filters     | ----> | Filters Display   | ----> | Filter Tool       |
+| Review Hike List  | <---- | Hike List Display | <---- | Trail Database    |
+| Confirm Export    | ----> | Export Confirmation| ---> | Trail Comparison  |
+| Download CSV      | <---- | CSV Download Link | <---- | Trail Comparison  |
++-------------------+       +-------------------+       +-------------------+
+                                                              |
+                                                              v
+                                                    +-------------------+
+                                                    | External Systems  |
+                                                    +-------------------+
+                                                    | Weather API       |
+                                                    +-------------------+
+
 

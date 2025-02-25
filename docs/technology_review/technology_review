@@ -1,0 +1,32 @@
+Technology Review: Shiny vs. Streamlit for Interactive Web Apps
+1. Background & Problem Statement
+The Trail Suggesting Tool for Hikers requires a Python-based interactive web application where users can:
+
+Input preferences (location, difficulty, elevation gain).
+View interactive maps and trail visualizations.
+Filter and explore different hiking trails dynamically.
+To implement this, we need a framework that allows fast and easy web app development while being:
+ User-friendly – Minimal coding effort for UI development.
+ Efficient – Handles real-time user interactions smoothly.
+ Scalable – Capable of managing moderate user traffic.
+ Well-integrated – Compatible with Python libraries like Pandas, Folium, and APIs.
+
+Shiny for Python provides a highly reactive programming model, allowing for dynamic user interactions with 
+fine-grained control over UI elements. This makes it well-suited for complex applications requiring real-time 
+interactivity, but it comes with a steeper learning curve and requires more setup and configuration compared 
+to other frameworks. It also has slightly higher computational overhead due to its reactivity model, making it 
+less efficient for lightweight applications.
+
+On the other hand, Streamlit is designed for simplicity and speed, allowing developers to create fully functional 
+data apps with just a few lines of Python code. It seamlessly integrates with popular libraries like Pandas, NumPy,
+ and Folium, making it ideal for our use case. While it lacks advanced UI customization compared to Shiny, its ease
+ of deployment, lightweight nature, and one-click hosting via Streamlit Cloud make it the better choice for quickly
+ building and deploying the Trail Suggesting Tool.
+
+Final Choice: Streamlit
+After evaluating both frameworks, we decided to use Streamlit for the Trail Suggesting Tool because:
+
+Simplicity – Requires less code compared to Shiny.
+Quick Prototyping – Ideal for fast MVP development with minimal boilerplate.
+Seamless Integration – Works well with Folium for maps, Pandas for data, and APIs.
+Deployment Ease – Can be hosted easily on Streamlit Cloud without additional configurations.

@@ -70,6 +70,8 @@ jobs:
           auto-update-conda: true
           # Which version of python you want conda to use
           python-version: ${{ matrix.python-version }}
+          # add conda-forge channel
+          channels: conda-forge,defaults
           # We don't need the base environment, so don't activate it
           auto-activate-base: false
 

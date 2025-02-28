@@ -7,3 +7,6 @@ dependencies:
   - pandas
   - numpy
   - pylint
+  - streamlit
+  - folium
+  - streamlit-folium

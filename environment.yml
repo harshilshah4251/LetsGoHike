@@ -2,8 +2,11 @@ name: letsgohikeenv
 channels:
   - defaults
 dependencies:
-  - python = 3.8
+  - python=3
   - matplotlib
   - pandas
   - numpy
   - pylint
+  - streamlit
+  - folium
+  - streamlit-folium

@@ -1,9 +1,10 @@
+"""unit test module for hike_data_manager """
 import unittest
 import pandas as pd
 from hike_data_manager import filter_hikes
 
 class TestHikeDataManager(unittest.TestCase):
-
+"""unit test class for testing hike_data_manager """
     def setUp(self):
         """Set up a sample DataFrame for testing"""
         self.df = pd.DataFrame([
@@ -24,7 +25,8 @@ class TestHikeDataManager(unittest.TestCase):
         """Test filtering by elevation gain"""
         filtered_df = filter_hikes(self.df, "All", (1000, 3000))
         self.assertEqual(len(filtered_df), 3)  # Expecting 3 hikes within elevation range
-        self.assertTrue(all(1000 <= filtered_df["elevation_gain"]) and all(filtered_df["elevation_gain"] <= 3000))
+        self.assertTrue(all(1000 <= filtered_df["elevation_gain"]) and
+                all(filtered_df["elevation_gain"] <= 3000))
 
     def test_filter_by_difficulty_and_elevation(self):
         """Test filtering by both difficulty and elevation"""

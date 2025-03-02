@@ -4,7 +4,7 @@ import pandas as pd
 from hike_data_manager import filter_hikes
 
 class TestHikeDataManager(unittest.TestCase):
-"""unit test class for testing hike_data_manager """
+    """unit test class for testing hike_data_manager """
     def setUp(self):
         """Set up a sample DataFrame for testing"""
         self.df = pd.DataFrame([

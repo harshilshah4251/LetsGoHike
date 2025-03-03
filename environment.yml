@@ -1,5 +1,6 @@
 name: letsgohikeenv
 channels:
+  - conda-forge
   - defaults
 dependencies:
   - python=3
@@ -10,3 +11,5 @@ dependencies:
   - streamlit
   - folium
   - streamlit-folium
+  - pip:
+      - python-weather

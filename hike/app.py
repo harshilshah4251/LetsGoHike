@@ -56,7 +56,7 @@ if "saved_hikes" not in st.session_state:
     st.session_state["saved_hikes"] = []
 
 # Display saved hikes in sidebar
-st.sidebar.subheader("Saved Hikes")
+
 for i, hike in enumerate(st.session_state["saved_hikes"]):
     col1, col2 = st.sidebar.columns([4, 1])  # Create columns for checkbox and remove button
     with col1:

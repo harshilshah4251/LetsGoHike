@@ -5,9 +5,19 @@ import pandas as pd
 import folium
 from folium.plugins import MarkerCluster
 from streamlit_folium import st_folium
-from hike.util import clean_float
-from hike.weather_util import fetch_weather, get_weather_description, getWeather
+from util import clean_float
+from weather_util import fetch_weather, get_weather_description, getWeather
 import hike_data_manager
+
+st.set_page_config(layout="wide")
+
+st.markdown("""
+    <style>
+        .block-container {
+            padding-top: 1rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 st.title("Let's Go Hike")
 

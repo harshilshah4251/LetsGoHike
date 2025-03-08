@@ -22,7 +22,7 @@ class TestSearchModule(unittest.TestCase):
         }
         cls.search_module.trails = pd.DataFrame(data)  # Mock the dataset
 
-    @patch("search_module.Nominatim.geocode")
+    @patch("letsgohike.modules.search_module.Nominatim.geocode")
     def test_find_nearest_trails_valid_location(self, mock_geocode):
         """Test search with a valid location"""
         mock_geocode.return_value = type('obj', (object,), {"latitude": 37.7749, "longitude": -122.4194})
@@ -39,7 +39,7 @@ class TestSearchModule(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results.iloc[0]["Name"], "Trail A")
 
-    @patch("search_module.Nominatim.geocode")
+    @patch("letsgohike.modules.search_module.Nominatim.geocode")
     def test_find_nearest_trails_invalid_location(self, mock_geocode):
         """Test search with an invalid location"""
         mock_geocode.return_value = None
@@ -57,7 +57,7 @@ class TestSearchModule(unittest.TestCase):
     def test_filter_by_difficulty(self):
         """Test filtering by difficulty"""
         results = self.search_module.find_nearest_trails(
-            location="San Francisco, CA",
+            location="Los Angeles, CA",
             difficulty="moderate",
             length_range=(0, 20),
             elevation_range=(0, 5000),

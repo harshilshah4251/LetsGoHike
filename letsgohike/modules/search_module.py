@@ -37,7 +37,7 @@ class SearchModule:
     # pylint: disable=too-many-arguments
     # pylint: disable=too-many-positional-arguments
     def find_nearest_trails(self, location, difficulty, length_range, elevation_range,
-                            max_distance_away=50):
+                            max_distance_away=100):
         """Find the closest hiking trails based on user input."""
         if not location:
             st.warning("Please enter a location.")

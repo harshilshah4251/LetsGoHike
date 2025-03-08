@@ -70,4 +70,3 @@ def main():
             hike_map_module.display()
 if __name__ == "__main__":
     main()
-    

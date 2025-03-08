@@ -11,5 +11,6 @@ dependencies:
   - streamlit
   - folium
   - streamlit-folium
+  - geopy
   - pip:
       - python-weather

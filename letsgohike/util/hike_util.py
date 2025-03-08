@@ -2,20 +2,20 @@
 import pandas as pd
 import streamlit as st
 
-def filter_hikes(df, difficulty, elevation):
-    """filter hikes based on given user input"""
-    filtered_df = df.copy()
-    if difficulty != "All":
-        filtered_df = filtered_df[filtered_df["Difficulty"] == difficulty]
-
-    filtered_df = filtered_df[
-        (filtered_df["elevation_gain"] >= elevation[0]) &
-        (filtered_df["elevation_gain"] <= elevation[1])
-    ]
-    return filtered_df
-
 @st.cache_data
-def load_hike_data():
+def load_hike_data(trails_csv):
     """load hike attribute data and prep data"""
-    df = pd.read_csv('alltrails-data.csv')
-    return df
+    if trails_csv:
+        df = pd.read_csv(trails_csv)
+        df['Lat'] = df['Lat'].str.replace('"', '', regex=True)
+        df['Lat'] = df['Lat'].str.replace(',', '', regex=True)
+        df['Lat'] = df['Lat'].str.replace(' ', '', regex=True)
+        df['Lat'] = df['Lat'].str.replace("'", '', regex=True)
+        df['Lat'] = df['Lat'].str.replace("|", '', regex=True)
+        df['Lat'] = df['Lat'].str.replace("l", '', regex=True)
+        df['Lat'] = pd.to_numeric(df['Lat'], errors='coerce')
+        df['Latitude'] = df['Lat']
+        df['Longitude'] = df['Long']
+        return df
+    else:
+        return None

@@ -1,75 +1,68 @@
 # my_module.py
 
 import streamlit as st
+import pandas as pd
 
 class HikeListModule:
     def __init__(self):
-        """
-        You can store any needed state or initialization data here.
-        For example, if your module needs to load a dataset, you could do it in the constructor.
-        """
-        self.hikes = [
-            {
-                "title": "Mountain Trail",
-                "difficulty": "Hard",
-                "length": "12 miles",
-                "elevation_gain": "1500 ft",
-                "description": "A challenging hike through rugged terrain."
-            },
-            {
-                "title": "Forest Walk",
-                "difficulty": "Easy",
-                "length": "3 miles",
-                "elevation_gain": "200 ft",
-                "description": "A relaxing stroll amidst towering trees."
-            },
-            {
-                "title": "Coastal Path",
-                "difficulty": "Medium",
-                "length": "5 miles",
-                "elevation_gain": "500 ft",
-                "description": "Enjoy breathtaking ocean views on this moderate hike."
-            },
-            {
-                "title": "Desert Run",
-                "difficulty": "Hard",
-                "length": "8 miles",
-                "elevation_gain": "800 ft",
-                "description": "Experience the vast and serene desert landscapes."
-            }
-        ]
+        pass
 
     def display(self):
-        """
-        This method can be called in your main Streamlit app to render
-        this module’s UI elements on the page.
-        """
-        st.header("Hike List Module")
+        # print("in display")
+        st.header("Hike List")
+
+        # Optional: Light green background for each hike box.
         st.markdown(
             """
             <style>
-            .hike-box {
+            .hike-container {
+                background-color: #e0f0d8; /* Light greenish background */
                 border: 1px solid #ccc;
                 border-radius: 5px;
-                padding: 10px;
-                margin-bottom: 10px;
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            .hike-title {
+                font-size: 1.2rem;
+                font-weight: bold;
+                margin: 0;
             }
             </style>
             """,
             unsafe_allow_html=True
         )
 
-        # Iterate over each hike and display its details in a box.
-        for hike in self.hikes:
+        if st.session_state.get("search_hikes_output") is not None:
+            hikes = st.session_state.get("search_hikes_output")
+        else:
+            hikes = pd.DataFrame()
+
+        for index, hike in hikes.iterrows():
+
+            # Start the styled container
+            
+            # Create a row with two columns: left for the title, right for the select button
+            col_left, col_right = st.columns([0.8, 0.2])
+
+            with col_left:
+                # Display hike name in a styled paragraph
+                st.markdown(f"<p class='hike-title'>{hike['name']}</p>", unsafe_allow_html=True)
+            with col_right:
+                pass
+                # Render the "Select" button on the top-right
+                if st.button("Select", key=f"select_{index}"):
+                    st.session_state.selected_hike = hike.to_dict()
+                    # st.rerun()
+            
+            # Display other key details below the top row
             st.markdown(
                 f"""
-                <div class="hike-box">
-                    <h3>{hike['title']}</h3>
-                    <p><strong>Difficulty:</strong> {hike['difficulty']}</p>
-                    <p><strong>Length:</strong> {hike['length']}</p>
-                    <p><strong>Elevation Gain:</strong> {hike['elevation_gain']}</p>
-                    <p>{hike['description']}</p>
-                </div>
+                <p><strong>Location:</strong> {hike['city_name']}, {hike['state_name']}</p>
+                <p><strong>Length:</strong> {hike['length']} {hike['units']}</p>
+                <p><strong>Difficulty:</strong> {hike['Difficulty']}</p>
+                <p><strong>Rating:</strong> {hike['avg_rating']} ({hike['num_reviews']} reviews)</p>
+                <p><strong>Distance Away:</strong> {hike['Distance away (miles)']} miles</p>
                 """,
                 unsafe_allow_html=True
             )
+            st.markdown("<hr>", unsafe_allow_html=True)

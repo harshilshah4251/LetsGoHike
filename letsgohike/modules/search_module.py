@@ -9,7 +9,7 @@ class SearchModule:
     """Generates navigation bar for searching and filtering hikes"""
     def __init__(self, csv_file):
         """load data and initialize geolocator"""
-        self.trails = load_hike_data(csv_file)
+        self.trails = load_hike_data(csv_file) 
         self.geolocator = Nominatim(user_agent="hiking_app")
 
     def get_user_input(self):
@@ -21,16 +21,16 @@ class SearchModule:
 
             row2 = st.columns([1,1])
             user_length = row2[0].slider("Trail length range (miles):", min_value=0.0,
-                                         max_value=20.0, value=(5.0,8.0))
+                                         max_value=20.0, value=(0.0,8.0))
             user_elevation = row2[1].slider("Elevation gain range (ft):", min_value=0,
-                                            max_value=14050, value=(1000, 1500))
+                                            max_value=14050, value=(0, 1500))
 
             row3 = st.columns([1,1,14])
             submitted = row3[0].form_submit_button("Search")
             reset = row3[1].form_submit_button("Reset")
 
         if reset:
-            return "", "Easy", (2.0, 10.0), (200, 2000)
+            return "", "Easy", (0.0, 10.0), (0, 2000)
 
         return location, difficulty.lower(), user_length, user_elevation if submitted else None
 
@@ -57,19 +57,17 @@ class SearchModule:
                 lambda row: geodesic(user_coords, (row["Latitude"], row["Longitude"])).miles, axis=1
             )
 
-            filtered_trails = self.trails[
+            filtered_trails =self.trails[
                 (self.trails["Difficulty"].str.lower() == difficulty) &
                 (self.trails["Distance_Miles"].between(length_range[0], length_range[1])) &
                 (self.trails["elevation_gain"].between(elevation_range[0], elevation_range[1])) &
                 (self.trails["Distance away (miles)"] <= max_distance_away)
             ].sort_values(by="Distance away (miles)")
-
-            #return filtered_trails
+            st.session_state.search_hikes_output = filtered_trails
             return filtered_trails
-
         # pylint: disable=broad-exception-caught
         except Exception as e:
-            st.error(f"Error finding trails: {e}")
+            # st.error(f"Error finding trails: {e}")
             return pd.DataFrame()
 
     def display(self):
@@ -78,7 +76,8 @@ class SearchModule:
         if location:
             results = self.find_nearest_trails(location, difficulty, length, elevation)
 
-            if not results.empty:
+            if results is not None and not results.empty:
                 st.success(f"Found {len(results)} matching trails!")
+                return results
             else:
-                st.warning("No matching trails found.")
+                print("No matching trails found.")

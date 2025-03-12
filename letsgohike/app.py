@@ -20,7 +20,7 @@ def main():
     """UI structure for Let's Go Hike streamlit app"""
     search_module = SearchModule("alltrails-data.csv")
     hike_description_module = HikeDescriptionModule()
-    hike_list_module = HikeListModule()
+    
     hike_picture_module = HikePictureModule()
     hike_map_module = HikeMapModule()
     weather_module = WeatherModule()
@@ -45,12 +45,13 @@ def main():
     with st.container():
         st.markdown('<div class="search-container">', unsafe_allow_html=True)
         search_module = SearchModule("alltrails-data.csv")
-        search_module.display()
+        hike_output_list = search_module.display()
         st.markdown('</div>', unsafe_allow_html=True)
     col_left, col_right = st.columns([1, 1])  # Adjust ratio as needed
 
     with col_left:
         # Hike list module
+        hike_list_module = HikeListModule()
         hike_list_module.display()
 
     with col_right:

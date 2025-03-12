@@ -9,7 +9,7 @@ class SearchModule:
     """Generates navigation bar for searching and filtering hikes"""
     def __init__(self, csv_file):
         """load data and initialize geolocator"""
-        st.session_state.all_data = load_hike_data(csv_file) 
+        self.trails = load_hike_data(csv_file) 
         self.geolocator = Nominatim(user_agent="hiking_app")
 
     def get_user_input(self):
@@ -53,15 +53,15 @@ class SearchModule:
             user_coords = (user_location.latitude, user_location.longitude)
 
             # Compute distances
-            st.session_state.all_data["Distance away (miles)"] = st.session_state.all_data.apply(
+            self.trails["Distance away (miles)"] = self.trails.apply(
                 lambda row: geodesic(user_coords, (row["Latitude"], row["Longitude"])).miles, axis=1
             )
 
-            filtered_trails =st.session_state.all_data[
-                (st.session_state.all_data["Difficulty"].str.lower() == difficulty) &
-                (st.session_state.all_data["Distance_Miles"].between(length_range[0], length_range[1])) &
-                (st.session_state.all_data["elevation_gain"].between(elevation_range[0], elevation_range[1])) &
-                (st.session_state.all_data["Distance away (miles)"] <= max_distance_away)
+            filtered_trails =self.trails[
+                (self.trails["Difficulty"].str.lower() == difficulty) &
+                (self.trails["Distance_Miles"].between(length_range[0], length_range[1])) &
+                (self.trails["elevation_gain"].between(elevation_range[0], elevation_range[1])) &
+                (self.trails["Distance away (miles)"] <= max_distance_away)
             ].sort_values(by="Distance away (miles)")
             st.session_state.search_hikes_output = filtered_trails
             return filtered_trails

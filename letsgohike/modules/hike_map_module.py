@@ -1,24 +1,40 @@
 # my_module.py
-
 import streamlit as st
 import pandas as pd
+import folium
+from streamlit_folium import st_folium
 
 class HikeMapModule:
     def __init__(self):
-        """
-        You can store any needed state or initialization data here.
-        For example, if your module needs to load a dataset, you could do it in the constructor.
-        """
-        self.data = pd.DataFrame({
-            'lat': [37.773972],
-            'lon': [-122.431297]
-        })
+        """Initialize with an empty DataFrame"""
+        self.data = pd.DataFrame(columns=["Latitude", "Longitude", "Trail Name"])
+
+    def update_data(self, filtered_trails):
+        """Update the map data with filtered results"""
+        if filtered_trails is not None and not filtered_trails.empty:
+            self.data = filtered_trails[["Latitude", "Longitude", "Trail Name"]]
+        else:
+            self.data = pd.DataFrame(columns=["Latitude", "Longitude", "Trail Name"])
 
     def display(self):
-        """
-        This method can be called in your main Streamlit app to render
-        this module’s UI elements on the page.
-        """
+        """Display the map with filtered trail locations"""
         st.header("Trail Map")
-        st.map(self.data)
 
+        if self.data.empty:
+            st.warning("No trails found for the selected filters. Try adjusting the search criteria.")
+            return
+
+        # Create a folium map centered on the first result
+        center = [self.data.iloc[0]["Latitude"], self.data.iloc[0]["Longitude"]]
+        hike_map = folium.Map(location=center, zoom_start=10)
+
+        # Add markers for each trailhead
+        for _, row in self.data.iterrows():
+            folium.Marker(
+                location=[row["Latitude"], row["Longitude"]],
+                popup=row["Trail Name"],
+                icon=folium.Icon(color="green", icon="cloud"),
+            ).add_to(hike_map)
+
+        # Render the folium map in Streamlit
+        st_folium(hike_map, width=700, height=500)

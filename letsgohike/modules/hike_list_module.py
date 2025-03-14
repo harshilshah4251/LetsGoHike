@@ -1,17 +1,27 @@
-# my_module.py
+"""
+Module for displaying a list of hikes using Streamlit.
+"""
 
 import streamlit as st
 import pandas as pd
 
+# pylint: disable=too-few-public-methods
 class HikeListModule:
-    def __init__(self):
-        pass
+    """
+    A module to display a list of hikes with detailed information and a selection button.
+    """
 
     def display(self):
-        # print("in display")
+        """
+        Display the hike list with styling and details.
+        
+        Retrieves hikes from session state (or an empty DataFrame if none exist) and displays
+        each hike in a styled layout with a "Select" button. When a hike is selected, it is
+        stored in the session state.
+        """
         st.header("Hike List")
 
-        # Optional: Light green background for each hike box.
+        # Render custom CSS for the hike container and title.
         st.markdown(
             """
             <style>
@@ -32,29 +42,24 @@ class HikeListModule:
             unsafe_allow_html=True
         )
 
-        if st.session_state.get("search_hikes_output") is not None:
-            hikes = st.session_state.get("search_hikes_output")
-        else:
-            hikes = pd.DataFrame()
+        # Retrieve hikes from session state or default to an empty DataFrame.
+        hikes = st.session_state.get("search_hikes_output", pd.DataFrame())
 
         for index, hike in hikes.iterrows():
-
-            # Start the styled container
-            
-            # Create a row with two columns: left for the title, right for the select button
+            # Create two columns: left for the title and right for the select button.
             col_left, col_right = st.columns([0.8, 0.2])
 
             with col_left:
-                # Display hike name in a styled paragraph
+                # Display hike name in a styled paragraph.
                 st.markdown(f"<p class='hike-title'>{hike['name']}</p>", unsafe_allow_html=True)
+
             with col_right:
-                pass
-                # Render the "Select" button on the top-right
+                # Render the "Select" button on the top-right.
                 if st.button("Select", key=f"select_{index}"):
                     st.session_state.selected_hike = hike.to_dict()
-                    # st.rerun()
-            
-            # Display other key details below the top row
+                    # Optionally, you can call st.experimental_rerun() to refresh the page.
+
+            # Display other key details below the top row.
             st.markdown(
                 f"""
                 <p><strong>Location:</strong> {hike['city_name']}, {hike['state_name']}</p>

@@ -4,10 +4,16 @@ import folium
 from streamlit_folium import st_folium
 
 class HikeMapModule:
+    """Module to display the map of the selected hike trail using Folium."""
+    # This module uses Folium to create an interactive map of the selected hike trail.
     def __init__(self):
+        """Initialize the HikeMapModule."""
+        # This module does not require any specific initialization parameters
         pass
 
     def display(self):
+        """Display the map of the selected hike trail."""
+        # Set the title for the map section
         st.header("Trail Map")
 
         # Check if a trail has been selected

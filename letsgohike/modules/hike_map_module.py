@@ -1,4 +1,3 @@
-# my_module.py
 import streamlit as st
 import pandas as pd
 import folium
@@ -6,35 +5,36 @@ from streamlit_folium import st_folium
 
 class HikeMapModule:
     def __init__(self):
-        """Initialize with an empty DataFrame"""
-        self.data = pd.DataFrame(columns=["Latitude", "Longitude", "Trail Name"])
-
-    def update_data(self, filtered_trails):
-        """Update the map data with filtered results"""
-        if filtered_trails is not None and not filtered_trails.empty:
-            self.data = filtered_trails[["Latitude", "Longitude", "Trail Name"]]
-        else:
-            self.data = pd.DataFrame(columns=["Latitude", "Longitude", "Trail Name"])
+        pass
 
     def display(self):
-        """Display the map with filtered trail locations"""
         st.header("Trail Map")
 
-        if self.data.empty:
-            st.warning("No trails found for the selected filters. Try adjusting the search criteria.")
-            return
+        # Check if a trail has been selected
+        if "selected_hike" in st.session_state:
+            selected_hike = st.session_state.selected_hike
+            lat = selected_hike["Latitude"]  # Latitude from the selected trail
+            lon = selected_hike["Longitude"]  # Longitude from the selected trail
 
-        # Create a folium map centered on the first result
-        center = [self.data.iloc[0]["Latitude"], self.data.iloc[0]["Longitude"]]
-        hike_map = folium.Map(location=center, zoom_start=10)
+            # Show the map of the selected trail's location
+            st.write(f"Showing the trailhead for **{selected_hike['name']}** on the map...")
 
-        # Add markers for each trailhead
-        for _, row in self.data.iterrows():
+            # Create a folium map centered at the selected trail's location
+            trail_map = folium.Map(location=[lat, lon], zoom_start=12)
+
+            # Add a marker (pin) at the selected trailhead's location
             folium.Marker(
-                location=[row["Latitude"], row["Longitude"]],
-                popup=row["Trail Name"],
-                icon=folium.Icon(color="green", icon="cloud"),
-            ).add_to(hike_map)
+                location=[lat, lon],
+                popup=f"<strong>{selected_hike['name']}</strong><br>{selected_hike['city_name']}, {selected_hike['state_name']}",
+                icon=folium.Icon(color='blue', icon='info-sign')
+            ).add_to(trail_map)
 
-        # Render the folium map in Streamlit
-        st_folium(hike_map, width=700, height=500)
+            # Adjust the map to make sure the marker is visible within the viewport
+            # Set the bounds of the map to a small area around the trailhead
+            trail_map.fit_bounds([[lat - 0.05, lon - 0.05], [lat + 0.05, lon + 0.05]])
+
+            # Display the map in the Streamlit app using st_folium
+            st_folium(trail_map, width=700, height=400)
+
+        else:
+            st.warning("Please select a trail from the list to view its location on the map.")

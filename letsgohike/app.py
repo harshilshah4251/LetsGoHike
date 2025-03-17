@@ -36,9 +36,6 @@ def main():
             .block-container {
                 padding-top: 1rem;
             }
-            .search-container {
-            }
-            /* Remove default padding around main block to make full-width usage easier */
             .main > div {
                 padding-top: 1rem;
                 padding-bottom: 0rem;
@@ -74,10 +71,10 @@ def main():
         with row1_col2:
             hike_picture_module.display()
 
-        # Row 2: Weather and hike map.
+        # Row 2 with weather and map
         row2_col1, row2_col2 = st.columns(2)
         with row2_col1:
-            weather_module.display()
+            weather_module.display()  # Restored weather module here
         with row2_col2:
             hike_map_module.display()
 

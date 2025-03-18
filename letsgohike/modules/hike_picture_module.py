@@ -21,50 +21,51 @@
 
 
 import streamlit as st
+import requests
 
-def get_trek_image(trek_name, google_api_key, cse_id):
-    """
-    Fetches an image of the trek using Google Custom Search API.
 
-    :param trek_name: Name of the trek
-    :param google_api_key: Google API Key
-    :param cse_id: Google Custom Search Engine (CSE) ID
-    :return: URL of the first relevant image
-    """
-    search_url = "https://www.googleapis.com/customsearch/v1"
-    params = {
-        "q": trek_name + " trek",
-        "cx": cse_id,
-        "key": google_api_key,
-        "searchType": "image",
-        "num": 1
-    }
+class HikePictureModule:
+    def get_trek_image(self, trek_name, google_api_key, cse_id):
+        """
+        Fetches an image of the trek using Google Custom Search API.
 
-    response = requests.get(search_url, params=params)
-    results = response.json()
+        :param trek_name: Name of the trek
+        :param google_api_key: Google API Key
+        :param cse_id: Google Custom Search Engine (CSE) ID
+        :return: URL of the first relevant image
+        """
+        search_url = "https://www.googleapis.com/customsearch/v1"
+        params = {
+            "q": trek_name + " trek",
+            "cx": cse_id,
+            "key": google_api_key,
+            "searchType": "image",
+            "num": 1
+        }
 
-    if "items" in results:
-        return results["items"][0]["link"]
-    else:
-        return "No image found."
+        response = requests.get(search_url, params=params)
+        results = response.json()
 
-# --- Ensure session state has a selected hike ---
-if "selected_hike" not in st.session_state:
-    # Default value if not set elsewhere in your app
-    st.session_state["selected_hike"] = {"city_name": "Horseshoe Lake Trail Denali National Park"}
+        if "items" in results:
+            return results["items"][0]["link"]
+        else:
+            return "No image found."
 
-# --- Use the dynamic input from session state ---
-trek_name = st.session_state.get("selected_hike")['city_name']
+    def display(self):
+        st.header("Hike Image")
+        selected_hike = st.session_state.get("selected_hike")
+        if selected_hike:
+            trek_name = selected_hike.get('city_name')
 
-# --- API Keys and Search Engine ID ---
-GEMINI_API_KEY = "AIzaSyD5d5iMJMXYQmOh3UqAj3zzHgle3MnMeEM"
-GOOGLE_SEARCH_API_KEY = "AIzaSyA9bfi1p9yY7jmSZZsMLb6O0BttyYFan-o"
-GOOGLE_CSE_ID = "95b8f0ed307d1444b"
+            # --- API Keys and Search Engine ID ---
+            GEMINI_API_KEY = "AIzaSyD5d5iMJMXYQmOh3UqAj3zzHgle3MnMeEM"
+            GOOGLE_SEARCH_API_KEY = "AIzaSyA9bfi1p9yY7jmSZZsMLb6O0BttyYFan-o"
+            GOOGLE_CSE_ID = "95b8f0ed307d1444b"
 
-# --- Fetch trek image ---
-image_url = get_trek_image(trek_name, GOOGLE_SEARCH_API_KEY, GOOGLE_CSE_ID)
-st.write("**Trek Image URL:**")
-st.write(image_url)
+            # --- Fetch trek image ---
+            image_url = self.get_trek_image(trek_name, GOOGLE_SEARCH_API_KEY, GOOGLE_CSE_ID)
+            st.write("**Trek Image URL:**")
+            st.write(image_url)
 
-# --- Display image in the Streamlit app ---
-st.image(image_url, caption=trek_name)
+            # --- Display image in the Streamlit app ---
+            st.image(image_url, caption=trek_name)

@@ -33,8 +33,6 @@ class WeatherModule:
         Uses the session state to determine the selected hike and then
         fetches and displays the weather forecast for the associated city.
         """
-        st.header("Current Weather")
-
         selected_hike = st.session_state.get("selected_hike")
         if selected_hike:
             city = selected_hike.get("city_name")

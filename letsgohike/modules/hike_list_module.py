@@ -4,6 +4,7 @@ Module for displaying a list of hikes using Streamlit.
 
 import streamlit as st
 import pandas as pd
+from letsgohike.modules.hike_picture_module import HikePictureModule
 
 # pylint: disable=too-few-public-methods
 class HikeListModule:
@@ -19,7 +20,7 @@ class HikeListModule:
         each hike in a styled layout with a "Select" button. When a hike is selected, it is
         stored in the session state.
         """
-        st.header("Hike List")
+        hike_picture_module = HikePictureModule()
 
         # Render custom CSS for the hike container and title.
         st.markdown(
@@ -33,9 +34,9 @@ class HikeListModule:
                 margin-bottom: 15px;
             }
             .hike-title {
-                font-size: 1.2rem;
+                font-size: 10.0rem;
                 font-weight: bold;
-                margin: 0;
+                margin: 5px;
             }
             </style>
             """,
@@ -46,12 +47,24 @@ class HikeListModule:
         hikes = st.session_state.get("search_hikes_output", pd.DataFrame())
 
         for index, hike in hikes.iterrows():
+            st.markdown(f"<p class='hike-title'>{hike['name']}</p>", unsafe_allow_html=True)
             # Create two columns: left for the title and right for the select button.
-            col_left, col_right = st.columns([0.8, 0.2])
+            col_pic, col_left, col_right = st.columns([0.4, 0.4, 0.2])
+
+            with col_pic:
+                hike_picture_module.hike_list_image(hike['name'])
 
             with col_left:
-                # Display hike name in a styled paragraph.
-                st.markdown(f"<p class='hike-title'>{hike['name']}</p>", unsafe_allow_html=True)
+                st.markdown(
+                    f"""
+                    <p><strong>Location:</strong> {hike['city_name']}, {hike['state_name']}</p>
+                    <p><strong>Length:</strong> {hike['Distance_Miles']} miles</p>
+                    <p><strong>Difficulty:</strong> {hike['Difficulty']}</p>
+                    <p><strong>Rating:</strong> {hike['avg_rating']} ({hike['num_reviews']} reviews)</p>
+                    <p><strong>Distance Away:</strong> {f"{hike['Distance away (miles)']:.1f}"} miles</p>   
+                    """,
+                    unsafe_allow_html=True
+                )
 
             with col_right:
                 # Render the "Select" button on the top-right.
@@ -59,15 +72,5 @@ class HikeListModule:
                     st.session_state.selected_hike = hike.to_dict()
                     # Optionally, you can call st.experimental_rerun() to refresh the page.
 
-            # Display other key details below the top row.
-            st.markdown(
-                f"""
-                <p><strong>Location:</strong> {hike['city_name']}, {hike['state_name']}</p>
-                <p><strong>Length:</strong> {hike['length']} {hike['units']}</p>
-                <p><strong>Difficulty:</strong> {hike['Difficulty']}</p>
-                <p><strong>Rating:</strong> {hike['avg_rating']} ({hike['num_reviews']} reviews)</p>
-                <p><strong>Distance Away:</strong> {hike['Distance away (miles)']} miles</p>
-                """,
-                unsafe_allow_html=True
-            )
             st.markdown("<hr>", unsafe_allow_html=True)
+            

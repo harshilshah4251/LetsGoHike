@@ -52,7 +52,6 @@ class HikeDescriptionModule:
             return "Issues with genai"  
 
     def display(self):
-        st.header("Hike Description")
         selected_hike = st.session_state.get("selected_hike")
         if selected_hike:
             trek_name = selected_hike.get('city_name')

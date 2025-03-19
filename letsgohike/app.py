@@ -5,6 +5,7 @@ assembling various modules such as search, hike description, picture, map, and w
 """
 
 import streamlit as st
+import pandas as pd
 # pylint: disable=import-error,no-name-in-module
 from letsgohike.modules.hike_description_module import HikeDescriptionModule
 # pylint: disable=import-error,no-name-in-module
@@ -61,22 +62,28 @@ def main():
     with col_left:
         # Hike list module.
         hike_list_module = HikeListModule()
-        hike_list_module.display()
+        if not "search_hikes_output" in st.session_state:
+            st.info("🔍 Use the search bar above to find hikes.")
+        else:
+            hike_list_module.display()
 
     with col_right:
-        # Row 1: Hike description and hike picture.
-        row1_col1, row1_col2 = st.columns(2)
-        with row1_col1:
-            hike_description_module.display()
-        with row1_col2:
-            hike_picture_module.display()
+        if not "selected_hike" in st.session_state:
+            st.warning("👈 Select a hike from the list to see details here.")
+        else:
+            # Row 1: Hike description and hike picture.
+            row1_col1, row1_col2 = st.columns(2)
+            with row1_col1:
+                hike_description_module.display()
+            with row1_col2:
+                hike_picture_module.display()
 
-        # Row 2 with weather and map
-        row2_col1, row2_col2 = st.columns(2)
-        with row2_col1:
-            weather_module.display()  # Restored weather module here
-        with row2_col2:
-            hike_map_module.display()
+            # Row 2 with weather and map
+            row2_col1, row2_col2 = st.columns(2)
+            with row2_col1:
+                weather_module.display()  # Restored weather module here
+            with row2_col2:
+                hike_map_module.display()
 
 
 if __name__ == "__main__":

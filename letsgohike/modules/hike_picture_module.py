@@ -52,7 +52,6 @@ class HikePictureModule:
             return "No image found."
 
     def display(self):
-        st.header("Hike Image")
         selected_hike = st.session_state.get("selected_hike")
         if selected_hike:
             trek_name = selected_hike.get('city_name')
@@ -64,8 +63,33 @@ class HikePictureModule:
 
             # --- Fetch trek image ---
             image_url = self.get_trek_image(trek_name, GOOGLE_SEARCH_API_KEY, GOOGLE_CSE_ID)
-            st.write("**Trek Image URL:**")
-            st.write(image_url)
 
             # --- Display image in the Streamlit app ---
-            st.image(image_url, caption=trek_name)
+            st.markdown(
+                f'<a href="{image_url}" target="_blank"><img src="{image_url}" width="500"></a>',
+                unsafe_allow_html=True
+            )
+    
+    def hike_list_image(self, hike_name):
+        GEMINI_API_KEY = "AIzaSyD5d5iMJMXYQmOh3UqAj3zzHgle3MnMeEM"
+        GOOGLE_SEARCH_API_KEY = "AIzaSyA9bfi1p9yY7jmSZZsMLb6O0BttyYFan-o"
+        GOOGLE_CSE_ID = "95b8f0ed307d1444b"
+
+        image_url = self.get_trek_image(hike_name, GOOGLE_SEARCH_API_KEY, GOOGLE_CSE_ID)
+
+        st.markdown(
+            f"""
+            <style>
+                .cropped-image {{
+                    width: 300px;  /* Set desired width */
+                    height: 180px; /* Set desired height */
+                    object-fit: cover; /* Crops image to fit without distortion */
+                    border-radius: 10px; /* Optional: rounded corners */
+                    display: block;
+                    margin: auto;
+                }}
+            </style>
+            <img src="{image_url}" class="cropped-image">
+            """,
+            unsafe_allow_html=True
+        )

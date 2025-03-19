@@ -17,11 +17,10 @@ class HikeMapModule:
 
     def display(self):
         """Display the map of the selected hike trail."""
-        # Set the title for the map section
-        st.header("Trail Map")
 
         # Check if a trail has been selected
         if "selected_hike" in st.session_state:
+            st.header("Trail Map")
             selected_hike = st.session_state.selected_hike
             if "Latitude" in selected_hike and "Longitude" in selected_hike:
                 lat = selected_hike["Latitude"]  # Latitude from the selected trail
@@ -51,4 +50,5 @@ class HikeMapModule:
             else:
                 st.warning("Selected hike does not have valid location data.")
         else:
-            st.warning("Please select a trail from the list to view its location on the map.")
+            #st.warning("Please select a trail from the list to view its location on the map.")
+            pass

@@ -28,36 +28,36 @@
 
 
 import streamlit as st
-def get_trek_description(trek_name, api_key):
-    """
-    Generates a trek description using Google Gemini API.
+import genai
 
-    :param trek_name: Name of the trek
-    :param api_key: Google Gemini API Key
-    :return: Description of the trek
-    """
-    genai.configure(api_key=api_key)
 
-    model = genai.GenerativeModel("gemini-1.5-pro")
-    prompt = f"Give me a detailed description of the trek in less than 200 words {trek_name}. Include location, difficulty, duration, best season, and highlights."
+class HikeDescriptionModule:
+    def get_trek_description(self, trek_name, api_key):
+        """
+        Generates a trek description using Google Gemini API.
 
-    response = model.generate_content(prompt)
-    return response.text
+        :param trek_name: Name of the trek
+        :param api_key: Google Gemini API Key
+        :return: Description of the trek
+        """
+        try:
+            genai.configure(api_key=api_key)
 
-# --- Ensure session state has a selected hike ---
-if "selected_hike" not in st.session_state:
-    
-    st.session_state["selected_hike"] = {"city_name": "Horseshoe Lake Trail Denali National Park"}
+            model = genai.GenerativeModel("gemini-1.5-pro")
+            prompt = f"Give me a detailed description of the trek in less than 200 words {trek_name}. Include location, difficulty, duration, best season, and highlights."
 
-# --- Use the dynamic input from session state ---
-trek_name = st.session_state.get("selected_hike")['city_name']
+            response = model.generate_content(prompt)
+            return response.text  
+        except:
+            return "Issues with genai"  
 
-# --- API Key for fetching trek description ---
-GEMINI_API_KEY = "AIzaSyD5d5iMJMXYQmOh3UqAj3zzHgle3MnMeEM"
-
-# --- Fetch trek description ---
-description = get_trek_description(trek_name, GEMINI_API_KEY)
-
-# --- Display only the trek description ---
-st.header("Trek Description")
-st.write(description)
+    def display(self):
+        selected_hike = st.session_state.get("selected_hike")
+        if selected_hike:
+            trek_name = selected_hike.get('city_name')
+            GEMINI_API_KEY = "AIzaSyD5d5iMJMXYQmOh3UqAj3zzHgle3MnMeEM"
+            description = self.get_trek_description(trek_name, GEMINI_API_KEY)
+            if description:
+                st.write(description)
+            else:
+                st.write("No description available")

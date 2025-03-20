@@ -31,8 +31,8 @@ class HikeDescriptionModule:
         if selected_hike:
             trek_city = selected_hike.get('city_name')
             trek_name = selected_hike.get('name')
-            formatted_trek = f"{trek_name},{trek_city} "
-            st.write( formatted_trek)
+            formatted_trek = f"{trek_name}, {trek_city} "
+            st.header(formatted_trek)
     
             #trek_name = "Mt. Rainier"
             

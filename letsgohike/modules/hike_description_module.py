@@ -42,7 +42,7 @@ class HikeDescriptionModule:
         try:
             genai.configure(api_key=api_key)
 
-            model = genai.GenerativeModel("gemini-1.5-pro")
+            model = genai.GenerativeModel("gemini-2.0-flash")
             prompt = f"Give me a detailed description of the trek in less than 150 words strictly {trek_name}. Include location, difficulty, duration, best season, and highlights."
 
             response =  model.generate_content(prompt)
@@ -63,7 +63,7 @@ class HikeDescriptionModule:
             #st.write("Selected Hike:", formatted_trek)
     
             #trek_name = "Mt. Rainier"
-            st.write("Selected Hike:", formatted_trek)
+            st.write(formatted_trek)
             GEMINI_API_KEY = "AIzaSyD5d5iMJMXYQmOh3UqAj3zzHgle3MnMeEM"
             description = self.get_trek_description(trek_name, GEMINI_API_KEY)
             #description = "test1"

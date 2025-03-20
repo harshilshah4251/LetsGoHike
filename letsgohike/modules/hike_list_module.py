@@ -4,6 +4,7 @@ Module for displaying a list of hikes using Streamlit.
 
 import streamlit as st
 import pandas as pd
+# pylint: disable=import-error,no-name-in-module
 from letsgohike.modules.hike_picture_module import HikePictureModule
 
 # pylint: disable=too-few-public-methods
@@ -60,8 +61,10 @@ class HikeListModule:
                     <p><strong>Location:</strong> {hike['city_name']}, {hike['state_name']}</p>
                     <p><strong>Length:</strong> {hike['Distance_Miles']} miles</p>
                     <p><strong>Difficulty:</strong> {hike['Difficulty']}</p>
-                    <p><strong>Rating:</strong> {hike['avg_rating']} ({hike['num_reviews']} reviews)</p>
-                    <p><strong>Distance Away:</strong> {f"{hike['Distance away (miles)']:.1f}"} miles</p>   
+                    <p><strong>Rating:</strong> {hike['avg_rating']} ({hike['num_reviews']} 
+                        reviews)</p>
+                    <p><strong>Distance Away:</strong> {f"{hike['Distance away (miles)']:.1f}"} 
+                        miles</p>
                     """,
                     unsafe_allow_html=True
                 )
@@ -73,4 +76,3 @@ class HikeListModule:
                     # Optionally, you can call st.experimental_rerun() to refresh the page.
 
             st.markdown("<hr>", unsafe_allow_html=True)
-            

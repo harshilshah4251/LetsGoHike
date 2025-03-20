@@ -18,6 +18,8 @@ from letsgohike.modules.hike_picture_module import HikePictureModule
 from letsgohike.modules.search_module import SearchModule
 # pylint: disable=import-error,no-name-in-module
 from letsgohike.modules.weather_module import WeatherModule
+# pylint: disable=import-error,no-name-in-module
+from letsgohike.modules.hike_plan_module import HikePlanModule # type: ignore
 
 st.set_page_config(page_title="Let's Go Hike!", page_icon="🏞️", layout="wide")
 
@@ -29,6 +31,7 @@ def main():
     hike_picture_module = HikePictureModule()
     hike_map_module = HikeMapModule()
     weather_module = WeatherModule()
+    hike_plan_module= HikePlanModule()
 
     # Apply custom CSS styles.
     st.markdown(
@@ -84,6 +87,9 @@ def main():
                 weather_module.display()  # Restored weather module here
             with row2_col2:
                 hike_map_module.display()
+            row3_col1, row3_col2 = st.columns(2)
+            with row3_col2:
+                hike_plan_module.display()
 
 
 if __name__ == "__main__":

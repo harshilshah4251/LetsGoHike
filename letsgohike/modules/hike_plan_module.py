@@ -5,8 +5,8 @@ import google.generativeai as genai
 
 
 
-class HikeDescriptionModule:
-    def get_trek_description(self, trek_name, api_key):
+class HikePlanModule:
+    def get_trek_plan(self, trek_name, api_key):
         """
         Generates a trek description using Google Gemini API.
 
@@ -15,8 +15,11 @@ class HikeDescriptionModule:
             genai.configure(api_key=api_key)
 
             model = genai.GenerativeModel("gemini-2.0-flash")
-            prompt = f"Give me a detailed description of the trek in less than 150 words strictly {trek_name}. Include location, difficulty, duration, best season, and highlights. do not bold the output."
-
+            prompt = (
+                f"For {trek_name}, give a very brief, no more than 150 words to the point trek plan for an average trek enthusiast. "
+                "It must include the following - any required gears, any vehicle permits or any special attribute that is specific to this location "
+                "that must be considered. Start the result directly with bullets."
+            )
             response =  model.generate_content(prompt)
         
             return response.text  
@@ -32,12 +35,13 @@ class HikeDescriptionModule:
             trek_city = selected_hike.get('city_name')
             trek_name = selected_hike.get('name')
             formatted_trek = f"{trek_name},{trek_city} "
-            st.write( formatted_trek)
+            #st.write("Selected Hike:", formatted_trek)
     
             #trek_name = "Mt. Rainier"
+            st.write(formatted_trek)
             
             GEMINI_API_KEY = "AIzaSyD5d5iMJMXYQmOh3UqAj3zzHgle3MnMeEM"
-            description = self.get_trek_description(trek_name, GEMINI_API_KEY)
+            description = self.get_trek_plan(trek_name, GEMINI_API_KEY)
             #description = "test1"
 
             if description:

@@ -54,7 +54,7 @@ class TestWeatherUtil(unittest.TestCase):
     Test cases for weather utility functions.
     """
 
-    @patch('letsgohike.util.weather_util.python_weather.Client', new=DummyClient)
+    #@patch('letsgohike.util.weather_util.python_weather.Client', new=DummyClient)
     def test_fetch_weather(self):
         """
         Test that fetch_weather returns the dummy weather data using the patched DummyClient.

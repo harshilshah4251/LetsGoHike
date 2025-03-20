@@ -38,6 +38,7 @@ class HikePlanModule:
             #st.write("Selected Hike:", formatted_trek)
     
             #trek_name = "Mt. Rainier"
+
             st.header("Planning Ahead for Hike")
             st.write(formatted_trek)
             

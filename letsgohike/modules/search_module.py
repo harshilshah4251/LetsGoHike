@@ -31,9 +31,10 @@ class SearchModule:
             if the form is submitted, or None otherwise.
         """
         with st.form("search_form"):
-            row1 = st.columns([3, 1])
+            row1 = st.columns([2, 1, 1])
             location = row1[0].text_input("Enter a location (city, zip, etc.):")
-            difficulty = row1[1].selectbox("Select difficulty:", ["Easy", "Moderate", "Difficult"])
+            distance_away = row1[1].selectbox("Select distance away (miles):", [20, 50, 100], index = 1)
+            difficulty = row1[2].selectbox("Select difficulty:", ["", "Easy", "Moderate", "Difficult"])
 
             row2 = st.columns([1, 1])
             user_length = row2[0].slider(
@@ -54,10 +55,10 @@ class SearchModule:
             reset = row3[1].form_submit_button("Reset")
 
         if reset:
-            return "", "easy", (0.0, 10.0), (0, 2000)
+            return "", "", (0.0, 10.0), (0, 2000), 50
 
         if submitted:
-            return location, difficulty.lower(), user_length, user_elevation
+            return location, difficulty.lower(), user_length, user_elevation, distance_away
 
         return None
 
@@ -97,7 +98,7 @@ class SearchModule:
             )
 
             filtered_trails = self.trails[
-                (self.trails["Difficulty"].str.lower() == difficulty) &
+                ((self.trails["Difficulty"].str.lower() == difficulty) if difficulty else True) &
                 (self.trails["Distance_Miles"].between(length_range[0], length_range[1])) &
                 (self.trails["elevation_gain"].between(elevation_range[0], elevation_range[1])) &
                 (self.trails["Distance away (miles)"] <= max_distance_away)
@@ -116,8 +117,8 @@ class SearchModule:
         if user_input is None:
             return
 
-        location, difficulty, length, elevation = user_input
-        results = self.find_nearest_trails(location, difficulty, length, elevation)
+        location, difficulty, length, elevation, max_distance = user_input
+        results = self.find_nearest_trails(location, difficulty, length, elevation, max_distance)
         if results is not None and not results.empty:
             st.success(f"Found {len(results)} matching trails!")
             return results

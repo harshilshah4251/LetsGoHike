@@ -14,5 +14,4 @@ dependencies:
   - geopy
   - pip:
       - python-weather
-      - genai
-      - google-generativeai
+      - google.generativeai

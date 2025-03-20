@@ -34,10 +34,11 @@ class HikePlanModule:
         if selected_hike:
             trek_city = selected_hike.get('city_name')
             trek_name = selected_hike.get('name')
-            formatted_trek = f"{trek_name},{trek_city} "
+            formatted_trek = f"{trek_name}, {trek_city} "
             #st.write("Selected Hike:", formatted_trek)
     
             #trek_name = "Mt. Rainier"
+            st.header("Planning Ahead for Hike")
             st.write(formatted_trek)
             
             GEMINI_API_KEY = "AIzaSyD5d5iMJMXYQmOh3UqAj3zzHgle3MnMeEM"

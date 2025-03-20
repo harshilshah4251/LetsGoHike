@@ -85,11 +85,10 @@ def main():
             row2_col1, row2_col2 = st.columns(2)
             with row2_col1:
                 weather_module.display()  # Restored weather module here
+                hike_plan_module.display()
             with row2_col2:
                 hike_map_module.display()
-            row3_col1, row3_col2 = st.columns(2)
-            with row3_col2:
-                hike_plan_module.display()
+                
 
 
 if __name__ == "__main__":

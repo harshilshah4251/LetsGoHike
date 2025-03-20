@@ -71,6 +71,7 @@ class HikePictureModule:
         #st.write("Selected Hike:", formatted_trek)
         #st.write(selected_hike)
         if selected_hike:
+            st.header("Hike Picture")
             #trek_name = selected_hike.get('city_name', 'Unknown Trek')
             trek_name = formatted_trek
             #st.write(trek_name)

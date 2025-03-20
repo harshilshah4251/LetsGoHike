@@ -3,7 +3,7 @@ from unittest.mock import patch, MagicMock
 import requests
 
 # Import the module to test (adjust the import as necessary)
-from hike_module import HikePictureModule
+from letsgohike.modules.hike_picture_module import HikePictureModule
 
 class TestHikePictureModule(unittest.TestCase):
 

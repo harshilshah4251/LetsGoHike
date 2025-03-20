@@ -2,8 +2,9 @@ import unittest
 from unittest.mock import patch, MagicMock
 import streamlit as st
 
-# Import the module to test (adjust the import as necessary)
-from hike_description_module import HikeDescriptionModule
+
+#from hike_description_module import HikeDescriptionModule
+from letsgohike.modules.hike_description_module import HikeDescriptionModule
 
 class TestHikeDescriptionModule(unittest.TestCase):
     # ----- Tests for get_trek_description -----

@@ -38,8 +38,11 @@ class HikePlanModule:
             #st.write("Selected Hike:", formatted_trek)
     
             #trek_name = "Mt. Rainier"
-            st.write(formatted_trek)
-            
+            #st.write(formatted_trek)
+            st.markdown(
+                f"<p style='color:#e0f0d8; font-weight:bold;'>Trek Plan for {formatted_trek}</p>",
+                unsafe_allow_html=True
+            )
             GEMINI_API_KEY = "AIzaSyD5d5iMJMXYQmOh3UqAj3zzHgle3MnMeEM"
             description = self.get_trek_plan(trek_name, GEMINI_API_KEY)
             #description = "test1"
